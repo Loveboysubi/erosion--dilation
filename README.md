@@ -29,37 +29,40 @@ Reg no : 212223230220
 # Import the necessary packages
 import cv2
 import numpy as np
-# Create a blank image (100 pixels high, 400 pixels wide)
-img = np.zeros((100, 400), dtype='uint8')
+from matplotlib import pyplot as plt
 
 # Create the Text using cv2.putText
-cv2.putText(img, 'Subishesh', (60, 70), cv2.FONT_HERSHEY_SIMPLEX, 2, (255), 5)
-cv2.imshow("Original Image" , img)
+img = np.zeros((100,400),dtype = 'uint8')
+font = cv2.FONT_HERSHEY_SIMPLEX
+cv2.putText(img ,'Subishesh',(80,70),font,2,(255),5,cv2.LINE_AA)
+plt.imshow(img)
+plt.axis('off')
 
 # Create the structuring element
-kernel = np.ones((5, 5), np.uint8)
+kernel = np.ones((5,5),np.uint8)
+kernel1 = cv2.getStructuringElement(cv2.MORPH_CROSS,(5,5))
+cv2.erode(img,kernel)
 
 # Erode the image
-eroded_img = cv2.erode(img, kernel, iterations=1)
-cv2.imshow("Eroded Image" ,eroded_img)
+img_erode = cv2.erode(img,kernel1)
+plt.imshow(img_erode)
+plt.axis('off')
 
 # Dilate the image
-dilated_img = cv2.dilate(img, kernel, iterations=1)
-cv2.imshow("Dilated Image" , dilated_img)
-
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+img_dilate = cv2.dilate(img,kernel1)
+plt.imshow(img_dilate)
+plt.axis('off')
 ```
 ## Output:
 
 ### Display the input Image
-![Screenshot 2024-10-19 091410](https://github.com/user-attachments/assets/1542fef5-da2f-4300-8970-72b6aab19b73)
+![Screenshot 2024-10-24 155450](https://github.com/user-attachments/assets/265e41f4-cae7-4a9b-9efa-cf18704492c4)
 
 ### Display the Eroded Image
-![Screenshot 2024-10-19 091424](https://github.com/user-attachments/assets/720b24e2-b375-4b84-a510-d850a519a215)
+![Screenshot 2024-10-24 155457](https://github.com/user-attachments/assets/f45bc765-8204-499f-8485-92336a2f8f9f)
 
 ### Display the Dilated Image
-![Screenshot 2024-10-19 091435](https://github.com/user-attachments/assets/0b576291-5e28-4b8e-ac74-4e730af5bd9f)
+![Screenshot 2024-10-24 155505](https://github.com/user-attachments/assets/756dbc99-53f3-4411-9372-1e49a1427fb2)
 
 ## Result
 Thus the generated text image is eroded and dilated using python and OpenCV.
